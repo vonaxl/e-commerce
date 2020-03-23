@@ -14,11 +14,11 @@ class Admin extends Model
         'address',
         'p_i',
     ];
-
+    
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+
     public function products(){
         return $this -> hasMany(Product::class);
     }
