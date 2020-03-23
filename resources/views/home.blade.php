@@ -15,7 +15,7 @@
                     @endif
 
                     You are logged in!axlù
-                    CUAIIO
+                    MRIS
                 </div>
             </div>
         </div>
