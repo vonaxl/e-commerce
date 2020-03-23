@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::apiResource('/products', 'Api.ProductController');
+
+Route::get('/products', 'ProductController@index');
+// show a product
+Route::get('/products/{product}', 'ProductController@show');
+// Delete a product
+Route::delete('/products/{product}', 'ProductController@destroy');
+
+

@@ -13,13 +13,7 @@ class AddForeignKey extends Migration
      */
     public function up()
     {
-        // Admin 1 - M PRODUCTS
-        Schema::table('products', function (Blueprint $table) {
-            $table -> bigInteger('admin_id') -> unsigned() -> index();
-            $table -> foreign('admin_id', 'products_admins_id')
-                   -> references('id')
-                   -> on('admins');
-         });
+        
         //  PRODUCTS 1 - M REVIEWS
         Schema::table('reviews', function (Blueprint $table) {
             $table -> bigInteger('product_id') -> unsigned() -> index();
@@ -64,11 +58,7 @@ class AddForeignKey extends Migration
      */
     public function down()
     {
-        // Admin 1 - M PRODUCTS
-        Schema::table('products', function (Blueprint $table) {
-            $table -> dropForeign('products_admins_id');
-            $table -> dropColumn('admin_id');
-        });
+        
         //  PRODUCTS 1 - M REVIEWS
         Schema::table('reviews', function (Blueprint $table) {
             $table -> dropForeign('reviews_products_id');
