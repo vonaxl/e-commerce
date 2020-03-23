@@ -12,4 +12,17 @@ class Product extends Model
         'price',
         'quantity',
     ];
+    public function admin(){
+        return $this -> belongsTo(Admin::class);
+    }
+    public function reviews(){
+        return $this -> hasMany(Review::class);
+    }
+    public function images(){
+        return $this -> hasMany(Image::class);
+    }
+    public function categories(){
+        return $this -> belongsToMany(Category::class);
+    }
+
 }
