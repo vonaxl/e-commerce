@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!axl
+                    You are logged in!axlù
+                    CUAIIO
                 </div>
             </div>
         </div>
