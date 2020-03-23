@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in!axlù
+                    MRIS
+                    Testo
                 </div>
             </div>
         </div>
