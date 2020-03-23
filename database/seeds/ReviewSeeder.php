@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Review;
 use App\Product;
+use App\User;
 class ReviewSeeder extends Seeder
 {
     /**
@@ -14,9 +15,12 @@ class ReviewSeeder extends Seeder
     {
         factory(Review::class, 50)
         ->make()
-        ->each(function($review){
-            $product = Product::inRandomOrder() ->first();
+        ->each(function($review,$product){
+            $product = Product::inRandomOrder() -> first();
+            $user = User::inRandomOrder() ->first();
+            
             $review -> product() -> associate($product);
+            $review -> user() -> associate($user);
             $review -> save();
         });
     }
