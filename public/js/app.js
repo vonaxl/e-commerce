@@ -2105,7 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       navSearch: "",
-      state: true
+      state: false
     };
   },
   watch: {
@@ -2116,6 +2116,8 @@ __webpack_require__.r(__webpack_exports__);
     navSearch: function navSearch(input) {
       if (input.length > 0) {
         this.state = true;
+      } else {
+        this.state = false;
       }
     }
   },
@@ -69012,11 +69014,16 @@ var render = function() {
                       _c(
                         "router-link",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.state,
+                              expression: "state"
+                            }
+                          ],
                           staticClass: "btn-sm btn-danger my-2 my-sm-0",
-                          attrs: {
-                            disabled: _vm.state,
-                            to: "/search/" + _vm.navSearch
-                          }
+                          attrs: { to: "/search/" + _vm.navSearch }
                         },
                         [
                           _c("span", { on: { click: _vm.productSearch } }, [
