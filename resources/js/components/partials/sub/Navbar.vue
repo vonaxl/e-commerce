@@ -45,7 +45,7 @@ export default {
   watch: {
     navSearch: function(value) {
       console.clear();
-      this.$emit('search', value);
+      this.$emit('navSearch', value);
     }
   }
 }

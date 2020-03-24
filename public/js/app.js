@@ -2011,14 +2011,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
-  },
   name: 'Header',
   components: {
     Navbar: _sub_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {};
+  },
+  methods: {
+    getNavSearch: function getNavSearch(value) {
+      this.$emit('filterProducts', value);
+    }
   }
 });
 
@@ -2079,7 +2085,7 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     navSearch: function navSearch(value) {
       console.clear();
-      this.$emit('search', value);
+      this.$emit('navSearch', value);
     }
   }
 });
@@ -68780,14 +68786,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Header", {
-        attrs: { search: _vm.filterProducts },
-        on: {
-          "update:search": function($event) {
-            _vm.filterProducts = $event
-          }
-        }
-      }),
+      _c("Header", { on: { filterProducts: _vm.filterProducts } }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [_c("router-view")], 1),
       _vm._v(" "),
@@ -68875,7 +68874,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("Navbar")], 1)
+  return _c(
+    "div",
+    [
+      _c("Navbar", { on: { navSearch: _vm.getNavSearch } }),
+      _vm._v("\n  " + _vm._s(_vm.headerSearch) + "\n")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
