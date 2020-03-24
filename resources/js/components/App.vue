@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header :search.sync="filterProducts"/>
+    <Header v-on:filterProducts="filterProducts"/>
 
     <div class="container">
         <router-view></router-view>

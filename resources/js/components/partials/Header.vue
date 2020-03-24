@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- navbar -->
-    <Navbar/>
+    <Navbar v-on:navSearch="getNavSearch"/>
+    {{headerSearch}}
   </div>
 </template>
 
@@ -9,14 +10,18 @@
   import Navbar from './sub/Navbar.vue'
 
   export default {
-    data(){
-      return {
-
-      }
-    },
     name: 'Header',
     components: {
       Navbar
+    },
+    data(){
+      return {
+      }
+    },
+    methods: {
+      getNavSearch(value){
+        this.$emit('filterProducts', value);
+      }
     }
   }
 </script>
