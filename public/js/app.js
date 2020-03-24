@@ -1923,6 +1923,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1994,6 +2000,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Search',
   data: function data() {
@@ -2010,7 +2019,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('http://127.0.0.1:3000/api/search/' + param).then(function (res) {
-        console.clear();
         console.log(res);
         _this.results = res.data.products;
       })["catch"](function (error) {
@@ -2134,8 +2142,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       navSearch: "",
-      state: false,
-      ricerca: true
+      state: false
     };
   },
   watch: {
@@ -2155,9 +2162,8 @@ __webpack_require__.r(__webpack_exports__);
     productSearch: function productSearch() {
       var _this = this;
 
-      this.$emit('ricerca', true);
       setTimeout(function () {
-        _this.navSearch = ""; // this.ricerca = false;
+        _this.navSearch = "";
       }, 50);
     }
   }
@@ -68859,7 +68865,16 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Header"),
+      _c("Header", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: this.$route.name !== "resultSearch",
+            expression: "this.$route.name !== 'resultSearch'"
+          }
+        ]
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [_c("router-view")], 1),
       _vm._v(" "),
@@ -69064,20 +69079,10 @@ var render = function() {
                 [
                   _c(
                     "b-nav-form",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.ricerca,
-                          expression: "ricerca"
-                        }
-                      ]
-                    },
                     [
                       _c("b-form-input", {
                         staticClass: "mr-sm-2",
-                        attrs: { size: "sm", placeholder: "Search" },
+                        attrs: { size: "sm" },
                         model: {
                           value: _vm.navSearch,
                           callback: function($$v) {

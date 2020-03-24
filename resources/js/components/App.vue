@@ -1,7 +1,13 @@
 <template>
   <div>
     <!-- <Header v-on:filterProducts="filterProducts"/> -->
-    <Header/>
+    <Header v-show="this.$route.name !== 'resultSearch'"/>
+
+    <!-- Funziona ma
+      abbiamo due opzioni:
+        1) componente  header alternativo per la pagina di ricerca
+        2) passare in qualche modo il nome della rotta e far gestire lo show al componenente navabar 
+     -->
 
     <div class="container">
       <router-view></router-view>

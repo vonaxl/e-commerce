@@ -1,5 +1,8 @@
 <template>
   <div>
+
+    <!-- ? METTERE UNA NAVBAR APPOSITA ? -->
+    
     <h1>Risultati ricerca per: {{ $route.params.navSearch }}</h1>
     <button @click="nuovaRicerca">Cerca di nuovo</button>
     <input type="text" v-model="input">
@@ -28,7 +31,6 @@ export default {
       axios
         .get('http://127.0.0.1:3000/api/search/' + param)					
         .then(function(res) {
-          console.clear();
           console.log(res);
           _this.results = res.data.products;
         })
