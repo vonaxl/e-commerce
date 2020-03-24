@@ -1,9 +1,10 @@
 <template>
   <div>
-    <Header v-on:filterProducts="filterProducts"/>
+    <!-- <Header v-on:filterProducts="filterProducts"/> -->
+    <Header/>
 
     <div class="container">
-        <router-view></router-view>
+      <router-view></router-view>
     </div>
 
     <Footer/>
@@ -20,9 +21,9 @@
       Footer
     },
     methods: {
-      filterProducts(value){
-        console.log("sto cercando", value);
-      }
+      // filterProducts(value){
+      //   console.log("sto cercando", value);
+      // }
     }
   }
 </script>
