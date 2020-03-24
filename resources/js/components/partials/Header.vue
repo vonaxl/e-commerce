@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- navbar -->
-    <Navbar v-on:navSearch="getNavSearch"/>
-    {{headerSearch}}
+    <Navbar/>
+    <!-- <Navbar v-on:navSearch="getNavSearch"/> -->
   </div>
 </template>
 
@@ -19,9 +19,9 @@
       }
     },
     methods: {
-      getNavSearch(value){
-        this.$emit('filterProducts', value);
-      }
+      // getNavSearch(value){
+      //   this.$emit('filterProducts', value);
+      // }
     }
   }
 </script>
