@@ -1988,10 +1988,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Search',
   data: function data() {
-    return {};
+    return {
+      results: {},
+      input: ""
+    };
+  },
+  mounted: function mounted() {
+    this.searchProdutcs(this.$route.params.navSearch);
+  },
+  methods: {
+    searchProdutcs: function searchProdutcs(param) {
+      var _this = this;
+
+      axios.get('http://127.0.0.1:3000/api/search/' + param).then(function (res) {
+        console.clear();
+        console.log(res);
+        _this.results = res.data.products;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    nuovaRicerca: function nuovaRicerca() {
+      console.log("nuova ricerca");
+      this.searchProdutcs(this.input);
+    }
   }
 });
 
@@ -2105,7 +2134,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       navSearch: "",
-      state: false
+      state: false,
+      ricerca: true
     };
   },
   watch: {
@@ -2125,9 +2155,10 @@ __webpack_require__.r(__webpack_exports__);
     productSearch: function productSearch() {
       var _this = this;
 
+      this.$emit('ricerca', true);
       setTimeout(function () {
-        _this.navSearch = "";
-      }, 250);
+        _this.navSearch = ""; // this.ricerca = false;
+      }, 50);
     }
   }
 });
@@ -68893,7 +68924,42 @@ var render = function() {
   return _c("div", [
     _c("h1", [
       _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
-    ])
+    ]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.nuovaRicerca } }, [
+      _vm._v("Cerca di nuovo")
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.input,
+          expression: "input"
+        }
+      ],
+      attrs: { type: "text" },
+      domProps: { value: _vm.input },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.input = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "ul",
+      _vm._l(_vm.results, function(product) {
+        return _c("li", { key: product.id }, [_vm._v(_vm._s(product.name))])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []
@@ -68998,6 +69064,16 @@ var render = function() {
                 [
                   _c(
                     "b-nav-form",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.ricerca,
+                          expression: "ricerca"
+                        }
+                      ]
+                    },
                     [
                       _c("b-form-input", {
                         staticClass: "mr-sm-2",

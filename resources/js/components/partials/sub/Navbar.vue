@@ -16,7 +16,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
+          <b-nav-form v-show="ricerca">
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="navSearch"></b-form-input>
             <router-link v-show="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0" >
               <span v-on:click="productSearch">Search</span>
@@ -43,6 +43,7 @@ export default {
     return {
       navSearch: "",
       state: false,
+      ricerca: true
     }
   },
   watch: {
@@ -60,9 +61,11 @@ export default {
   },
   methods: {
     productSearch(){
+      this.$emit('ricerca', true);
       setTimeout(() => {
         this.navSearch = "";
-      }, 250);
+        // this.ricerca = false;
+      }, 50);
     }
   }
 }

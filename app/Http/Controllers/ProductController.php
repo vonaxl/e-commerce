@@ -7,23 +7,28 @@ use App\Product;
 use App\Admin;
 class ProductController extends Controller
 {
-    public function index(){
-        $products=Product::all();
-        return $products;
-    }
+	public function index(){
+		$products=Product::all();
+		return $products;
+	}
 
-    public function show(Product $product){
-        return $product;
-        // return view('test', compact('product'));
-    }
+	public function show(Product $product){
+		return $product;
+		// return view('test', compact('product'));
+	}
 
-    public function destroy(Product $product){
+	public function destroy(Product $product){
 
-        $product -> images() -> delete();   
-        $product -> reviews() -> delete();
-        $product -> categories() -> detach();
+		$product -> images() -> delete();   
+		$product -> reviews() -> delete();
+		$product -> categories() -> detach();
 
-        $product -> delete();
+		$product -> delete();
 
-    }
+	}
+
+	public function searchProducts($value){
+		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> get();
+		return response() -> json(compact('products'));
+	}
 }

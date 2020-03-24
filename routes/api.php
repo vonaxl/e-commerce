@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route::apiResource('/products', 'Api.ProductController');
 
+Route::get('/search/{value}', 'ProductController@searchProducts');
+
 Route::get('/products', 'ProductController@index');
 // show a product
 Route::get('/products/{product}', 'ProductController@show');
