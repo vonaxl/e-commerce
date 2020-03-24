@@ -18,7 +18,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="navSearch"></b-form-input>
-            <router-link :disabled="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0" >
+            <router-link v-show="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0" >
               <span v-on:click="productSearch">Search</span>
             </router-link>
           </b-nav-form>
@@ -42,7 +42,7 @@ export default {
   data(){
     return {
       navSearch: "",
-      state: true,
+      state: false,
     }
   },
   watch: {
@@ -53,6 +53,8 @@ export default {
     navSearch: function(input) {
       if(input.length > 0) {
         this.state = true;
+      } else {
+        this.state = false;
       }
     }
   },
