@@ -6,7 +6,6 @@ import VueRouter from 'vue-router'
 
 import App from './components/App'
 import Home from './components/Home'
-import Hello from './components/Hello'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -18,11 +17,6 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
         },
     ],
 });
