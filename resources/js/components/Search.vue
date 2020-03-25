@@ -6,9 +6,9 @@
 			<div class="col-12 col-md-4">
 				<h4>Sidebar</h4>
 				<input type="text" v-model="navSearch" />
-				<router-link 	v-show="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0">
+				<!-- <router-link 	v-show="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0">
 						<span @click="searchProdutcs(navSearch)">Search</span>
-				</router-link>
+				</router-link> -->
 				<hr>
 				<h4>Filters</h4>
 				<div>
@@ -61,16 +61,18 @@
 		data() {
 			return {
 				results: {},
-				navSearch: "",
-				state: false,
+				myParams: {},
+				navSearch: null,
 				category: null,
 				categories: [
 					{ value: null, text: 'Any category' }
 				],
-				priceRange: 0,
+				priceRange: null,
 			};
 		},
 		created(){
+			this.searchProdutcs(this.$route.params.navSearch);
+
 			const _this = this;
 			axios
 				.get("http://127.0.0.1:3000/api/categories/")
@@ -88,24 +90,51 @@
 		},
 		watch: {
 			navSearch: function(input) {
-				if (input.length > 0) {
-					this.state = true;
-				} else {
-					this.state = false;
-				}
+
+				setTimeout(() => {
+					if (input != null) {
+						this.searchProdutcs(input);
+					}
+				}, 1000);
+				// if (input.length > 0) {
+				// 	this.searchProdutcs(input);
+				// } else {
+				// 	this.state = false;
+				// }
+			},
+			category: function(){
+				this.searchProdutcs();
+			},
+			priceRange: function(){
+				this.searchProdutcs();
 			}
 		},
-		mounted() {
-			this.searchProdutcs(this.$route.params.navSearch);
-		},
 		methods: {
-			searchProdutcs(param) {
+			searchProdutcs() {
 				const _this = this;
+				console.clear();
+
+				console.log("price", _this.priceRange, "category", _this.category, "ricerca", _this.navSearch);
+
+				if(_this.navSearch != null) {
+					_this.myParams.search = _this.navSearch;
+				}
+				if(_this.category != null) {
+					_this.myParams.category = _this.category;
+				}
+				if(_this.priceRange != null) {
+					_this.myParams.price = _this.priceRange;
+				}
+
+				console.log(_this.myParams);
+				
+
 				axios
-					.get("http://127.0.0.1:3000/api/search/" + param)
+					.get("http://127.0.0.1:3000/api/search/",{
+						params: _this.myParams
+					})
 					.then(function(res) {
-						_this.navSearch = "";
-						_this.results = res.data.products;
+						// _this.results = res.data.products;
 						console.log(res);
 						
 					})

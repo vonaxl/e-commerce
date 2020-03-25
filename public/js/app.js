@@ -2034,45 +2034,112 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Search",
   data: function data() {
     return {
       results: {},
-      navSearch: "",
-      state: false,
-      categories: {}
+      myParams: {},
+      navSearch: null,
+      category: null,
+      categories: [{
+        value: null,
+        text: 'Any category'
+      }],
+      priceRange: null
     };
   },
   created: function created() {
+    this.searchProdutcs(this.$route.params.navSearch);
+
     var _this = this;
 
     axios.get("http://127.0.0.1:3000/api/categories/").then(function (res) {
-      console.log("Categorie", res);
-      _this.categories = res.data;
+      var data = res.data;
+      var value,
+          text,
+          object = {};
+      res.data.forEach(function (element) {
+        value = element.id;
+        text = element.title;
+        object = {
+          value: value,
+          text: text
+        };
+
+        _this.categories.push(object);
+      });
     })["catch"](function (error) {
       return console.log(error);
     });
   },
   watch: {
     navSearch: function navSearch(input) {
-      if (input.length > 0) {
-        this.state = true;
-      } else {
-        this.state = false;
-      }
+      var _this2 = this;
+
+      setTimeout(function () {
+        if (input != null) {
+          _this2.searchProdutcs(input);
+        }
+      }, 1000); // if (input.length > 0) {
+      // 	this.searchProdutcs(input);
+      // } else {
+      // 	this.state = false;
+      // }
+    },
+    category: function category() {
+      this.searchProdutcs();
+    },
+    priceRange: function priceRange() {
+      this.searchProdutcs();
     }
   },
-  mounted: function mounted() {
-    this.searchProdutcs(this.$route.params.navSearch);
-  },
   methods: {
-    searchProdutcs: function searchProdutcs(param) {
+    searchProdutcs: function searchProdutcs() {
       var _this = this;
 
-      axios.get("http://127.0.0.1:3000/api/search/" + param).then(function (res) {
-        _this.navSearch = "";
-        _this.results = res.data.products;
+      console.clear();
+      console.log("price", _this.priceRange, "category", _this.category, "ricerca", _this.navSearch);
+
+      if (_this.navSearch != null) {
+        _this.myParams.search = _this.navSearch;
+      }
+
+      if (_this.category != null) {
+        _this.myParams.category = _this.category;
+      }
+
+      if (_this.priceRange != null) {
+        _this.myParams.price = _this.priceRange;
+      }
+
+      console.log(_this.myParams);
+      axios.get("http://127.0.0.1:3000/api/search/", {
+        params: _this.myParams
+      }).then(function (res) {
+        // _this.results = res.data.products;
         console.log(res);
       })["catch"](function (error) {
         return console.log(error);
@@ -69113,82 +69180,67 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-12 col-md-4" },
-        [
-          _c("h4", [_vm._v("Sidebar")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.navSearch,
-                expression: "navSearch"
-              }
-            ],
-            attrs: { type: "text" },
-            domProps: { value: _vm.navSearch },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.navSearch = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "router-link",
+      _c("div", { staticClass: "col-12 col-md-4" }, [
+        _c("h4", [_vm._v("Sidebar")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.state,
-                  expression: "state"
-                }
-              ],
-              staticClass: "btn-sm btn-danger my-2 my-sm-0",
-              attrs: { to: "/search/" + _vm.navSearch }
-            },
-            [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      return _vm.searchProdutcs(_vm.navSearch)
-                    }
-                  }
-                },
-                [_vm._v("Search")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("h4", [_vm._v("Filters")]),
-          _vm._v(" "),
-          _c("div", [
+              name: "model",
+              rawName: "v-model",
+              value: _vm.navSearch,
+              expression: "navSearch"
+            }
+          ],
+          attrs: { type: "text" },
+          domProps: { value: _vm.navSearch },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.navSearch = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Filters")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
             _c("h5", [_vm._v("Categories")]),
             _vm._v(" "),
-            _c(
-              "ul",
-              _vm._l(_vm.categories, function(category) {
-                return _c("li", { key: category.id }, [
-                  _vm._v(_vm._s(category.title))
-                ])
-              }),
-              0
-            )
-          ])
-        ],
-        1
-      ),
+            _c("b-form-select", {
+              attrs: { options: _vm.categories, size: "sm" },
+              model: {
+                value: _vm.category,
+                callback: function($$v) {
+                  _vm.category = $$v
+                },
+                expression: "category"
+              }
+            }),
+            _vm._v(" "),
+            _c("h5", [_vm._v("Price")]),
+            _vm._v(" "),
+            _c("b-form-input", {
+              attrs: { id: "range-1", type: "range", min: "19", max: "1000" },
+              model: {
+                value: _vm.priceRange,
+                callback: function($$v) {
+                  _vm.priceRange = $$v
+                },
+                expression: "priceRange"
+              }
+            }),
+            _vm._v("\n\t\t\t\t€" + _vm._s(_vm.priceRange) + "\n\t\t\t")
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-12 col-md-8" }, [
         _c("h4", [_vm._v("Products list")]),
@@ -69198,12 +69250,69 @@ var render = function() {
               "ul",
               _vm._l(_vm.results, function(product) {
                 return _c("li", { key: product.id }, [
-                  _vm._v(
-                    "\n\t\t\t\t\t" +
-                      _vm._s(product.name) +
-                      " - €" +
-                      _vm._s(product.price) +
-                      "\n\t\t\t\t"
+                  _c("p", [_vm._v(_vm._s(product.name))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(product.description))]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "€" +
+                        _vm._s(product.price) +
+                        " | " +
+                        _vm._s(product.quantity)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    [
+                      _c("h6", { staticClass: "text-uppercase text-success" }, [
+                        _vm._v("Reviews")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(product.reviews, function(review) {
+                        return _c("li", { key: review.id }, [
+                          _c("p", [_vm._v(_vm._s(review.title))]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(review.body))])
+                        ])
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    [
+                      _c("h6", { staticClass: "text-uppercase text-danger" }, [
+                        _vm._v("Categories")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(product.categories, function(category) {
+                        return _c("li", { key: category.id }, [
+                          _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(category.title))
+                          ])
+                        ])
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    [
+                      _c("h6", { staticClass: "text-uppercase text-primary" }, [
+                        _vm._v("Images")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(product.images, function(image) {
+                        return _c("li", { key: image.id }, [
+                          _c("p", [_vm._v(_vm._s(image.path))])
+                        ])
+                      })
+                    ],
+                    2
                   )
                 ])
               }),

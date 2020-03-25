@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Admin;
+
+use Illuminate\Database\Eloquent\Builder;
+
 class ProductController extends Controller
 {
 	public function index(){
@@ -23,8 +26,20 @@ class ProductController extends Controller
 		$product -> delete();
 	}
 
-	public function searchProducts($value){
-		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> with('categories', 'reviews', 'images') ->get();
+	public function searchProducts(Request $request){
+
+		$params = [];
+		
+		if($request->navSearch) $params[] = ['name', 'LIKE', "%$request->navSearch%"];
+		if($request->price) $params[] = ['price', '<=', "$request->price"];
+		
+		if($request->category){
+			$id = $request->category;
+			$products = Product::with('categories', 'reviews', 'images') -> where($params) -> whereHas('categories', function (Builder $query) use ($id) {
+					$query->where('category_id', '=', $id);
+			})->get();
+		} else $products = Product::with('categories', 'reviews', 'images') -> where($params) -> get();
+		
 		return response() -> json(compact('products'));
 	}
 
