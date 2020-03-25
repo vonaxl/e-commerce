@@ -1,35 +1,35 @@
 <template>
-  <div>
-    <!-- <Header v-on:filterProducts="filterProducts"/> -->
-    <Header v-show="this.$route.name !== 'resultSearch'"/>
+    <div>
+        <!-- <Header v-on:filterProducts="filterProducts"/> -->
+        <Header />
 
-    <!-- Funziona ma
+        <!-- Funziona ma
       abbiamo due opzioni:
         1) componente  header alternativo per la pagina di ricerca
         2) passare in qualche modo il nome della rotta e far gestire lo show al componenente navabar 
      -->
 
-    <div class="container">
-      <router-view></router-view>
-    </div>
+        <div class="container">
+            <router-view></router-view>
+        </div>
 
-    <Footer/>
-  </div>
+        <Footer />
+    </div>
 </template>
 
 <script>
-  import Header from './partials/Header.vue'
-  import Footer from './partials/Footer.vue'
+import Header from "./partials/Header.vue";
+import Footer from "./partials/Footer.vue";
 
-  export default {
+export default {
     components: {
-      Header,
-      Footer
+        Header,
+        Footer
     },
     methods: {
-      // filterProducts(value){
-      //   console.log("sto cercando", value);
-      // }
+        // filterProducts(value){
+        //   console.log("sto cercando", value);
+        // }
     }
-  }
+};
 </script>

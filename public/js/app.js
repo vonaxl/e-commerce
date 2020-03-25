@@ -2003,13 +2003,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Search',
+  name: "Search",
   data: function data() {
     return {
       results: {},
-      input: ""
+      navSearch: "",
+      state: false
     };
+  },
+  watch: {
+    navSearch: function navSearch(input) {
+      if (input.length > 0) {
+        this.state = true;
+      } else {
+        this.state = false;
+      }
+    }
   },
   mounted: function mounted() {
     this.searchProdutcs(this.$route.params.navSearch);
@@ -2018,16 +2043,13 @@ __webpack_require__.r(__webpack_exports__);
     searchProdutcs: function searchProdutcs(param) {
       var _this = this;
 
-      axios.get('http://127.0.0.1:3000/api/search/' + param).then(function (res) {
+      axios.get("http://127.0.0.1:3000/api/search/" + param).then(function (res) {
+        _this.navSearch = "";
         console.log(res);
         _this.results = res.data.products;
       })["catch"](function (error) {
         return console.log(error);
       });
-    },
-    nuovaRicerca: function nuovaRicerca() {
-      console.log("nuova ricerca");
-      this.searchProdutcs(this.input);
     }
   }
 });
@@ -2137,8 +2159,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Navbar',
+  name: "Navbar",
   data: function data() {
     return {
       navSearch: "",
@@ -68865,16 +68895,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Header", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: this.$route.name !== "resultSearch",
-            expression: "this.$route.name !== 'resultSearch'"
-          }
-        ]
-      }),
+      _c("Header"),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [_c("router-view")], 1),
       _vm._v(" "),
@@ -68936,46 +68957,89 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [
-      _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
-    ]),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.nuovaRicerca } }, [
-      _vm._v("Cerca di nuovo")
-    ]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.input,
-          expression: "input"
-        }
-      ],
-      attrs: { type: "text" },
-      domProps: { value: _vm.input },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+  return _c(
+    "div",
+    [
+      _c("h1", [
+        _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.navSearch,
+            expression: "navSearch"
           }
-          _vm.input = $event.target.value
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.navSearch },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.navSearch = $event.target.value
+          }
         }
-      }
-    }),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c(
-      "ul",
-      _vm._l(_vm.results, function(product) {
-        return _c("li", { key: product.id }, [_vm._v(_vm._s(product.name))])
       }),
-      0
-    )
-  ])
+      _vm._v(" "),
+      _c(
+        "router-link",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.state,
+              expression: "state"
+            }
+          ],
+          staticClass: "btn-sm btn-danger my-2 my-sm-0",
+          attrs: { to: "/search/" + _vm.navSearch }
+        },
+        [
+          _c(
+            "span",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.searchProdutcs(_vm.navSearch)
+                }
+              }
+            },
+            [_vm._v("Search")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm.results.length > 0
+        ? _c(
+            "ul",
+            _vm._l(_vm.results, function(product) {
+              return _c("li", { key: product.id }, [
+                _vm._v("\n            " + _vm._s(product.name) + "\n        ")
+              ])
+            }),
+            0
+          )
+        : _vm.results.length < 1
+        ? _c("div", [
+            _c("img", {
+              attrs: {
+                src:
+                  "https://image.freepik.com/free-vector/error-404-found-glitch-effect_8024-4.jpg",
+                alt: ""
+              }
+            })
+          ])
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -69079,6 +69143,16 @@ var render = function() {
                 [
                   _c(
                     "b-nav-form",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: this.$route.name !== "resultSearch",
+                          expression: "this.$route.name !== 'resultSearch'"
+                        }
+                      ]
+                    },
                     [
                       _c("b-form-input", {
                         staticClass: "mr-sm-2",
@@ -84748,8 +84822,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Axl\Documents\GitHub\e-commerce\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Axl\Documents\GitHub\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
