@@ -2070,7 +2070,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.searchProdutcs(this.$route.params.navSearch);
-    this.navSearch = null;
 
     var _this = this;
 
@@ -2142,6 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
         params: _this.myParams
       }).then(function (res) {
         _this.results = res.data.products;
+        _this.myParams = {};
         console.log(res);
       })["catch"](function (error) {
         return console.log(error);
@@ -69175,9 +69175,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [
-      _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
-    ]),
+    _c("h1", [_vm._v("Risultati ricerca " + _vm._s(_vm.results.length))]),
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
