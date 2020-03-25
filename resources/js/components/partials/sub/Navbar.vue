@@ -54,6 +54,10 @@ export default {
         };
     },
     watch: {
+        // navSearch: function(value) {
+        //   console.clear();
+        //   this.$emit('navSearch', value);
+        // },
         navSearch: function(input) {
             if (input.length > 0) {
                 this.state = true;
