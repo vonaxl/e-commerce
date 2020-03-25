@@ -2053,9 +2053,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Search",
   data: function data() {
@@ -2073,6 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.searchProdutcs(this.$route.params.navSearch);
+    this.navSearch = null;
 
     var _this = this;
 
@@ -2097,34 +2095,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     navSearch: function navSearch(input) {
-      var _this2 = this;
+      clearTimeout(this.timeout);
 
-      setTimeout(function () {
-        if (input != null) {
-          _this2.searchProdutcs(input);
-        }
-      }, 1000); // if (input.length > 0) {
-      // 	this.searchProdutcs(input);
-      // } else {
-      // 	this.state = false;
-      // }
+      var _this = this;
+
+      this.timeout = setTimeout(function () {
+        _this.searchProdutcs();
+      }, 500);
     },
     category: function category() {
       this.searchProdutcs();
     },
     priceRange: function priceRange() {
-      this.searchProdutcs();
+      clearTimeout(this.timeout);
+
+      var _this = this;
+
+      this.timeout = setTimeout(function () {
+        _this.searchProdutcs();
+      }, 1000);
     }
   },
   methods: {
-    searchProdutcs: function searchProdutcs() {
+    searchProdutcs: function searchProdutcs(value) {
+      console.clear();
+
       var _this = this;
 
-      console.clear();
-      console.log("price", _this.priceRange, "category", _this.category, "ricerca", _this.navSearch);
+      if (value) {
+        _this.myParams.navSearch = value;
+      }
 
       if (_this.navSearch != null) {
-        _this.myParams.search = _this.navSearch;
+        _this.myParams.navSearch = _this.navSearch;
       }
 
       if (_this.category != null) {
@@ -2135,11 +2138,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.myParams.price = _this.priceRange;
       }
 
-      console.log(_this.myParams);
       axios.get("http://127.0.0.1:3000/api/search/", {
         params: _this.myParams
       }).then(function (res) {
-        // _this.results = res.data.products;
+        _this.results = res.data.products;
         console.log(res);
       })["catch"](function (error) {
         return console.log(error);
