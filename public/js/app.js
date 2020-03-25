@@ -2176,10 +2176,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    // navSearch: function(value) {
-    //   console.clear();
-    //   this.$emit('navSearch', value);
-    // },
     navSearch: function navSearch(input) {
       if (input.length > 0) {
         this.state = true;
