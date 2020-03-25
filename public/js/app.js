@@ -1966,9 +1966,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2021,14 +2018,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Search",
   data: function data() {
     return {
       results: {},
       navSearch: "",
-      state: false
+      state: false,
+      categories: {}
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get("http://127.0.0.1:3000/api/categories/").then(function (res) {
+      console.log("Categorie", res);
+      _this.categories = res.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    });
   },
   watch: {
     navSearch: function navSearch(input) {
@@ -2048,8 +2072,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("http://127.0.0.1:3000/api/search/" + param).then(function (res) {
         _this.navSearch = "";
-        console.log(res);
         _this.results = res.data.products;
+        console.log(res);
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -69024,17 +69048,20 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row" },
+        { staticClass: "row justify-content-around" },
         _vm._l(_vm.products, function(product) {
           return _c(
             "router-link",
-            { key: product.id, attrs: { to: "/show/" + product.id } },
+            {
+              key: product.id,
+              staticClass: "col-12 col-sm-2 col-md-4",
+              attrs: { to: "/show/" + product.id }
+            },
             [
               _c(
                 "b-card",
                 {
-                  staticClass: "col-3",
-                  staticStyle: { "max-width": "20rem" },
+                  staticClass: "mb-2",
                   attrs: {
                     title: product.name,
                     "img-src": "https://picsum.photos/600/300/?image=25",
@@ -69043,13 +69070,7 @@ var render = function() {
                     tag: "article"
                   }
                 },
-                [
-                  _c("b-card-text", [
-                    _vm._v(
-                      "\r\n          Some quick example text to build on the card title and make up the bulk of the card's content.\r\n        "
-                    )
-                  ])
-                ],
+                [_c("b-card-text", [_vm._v("Card text")])],
                 1
               )
             ],
@@ -69084,89 +69105,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h1", [
-        _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.navSearch,
-            expression: "navSearch"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.navSearch },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.navSearch = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
+  return _c("div", [
+    _c("h1", [
+      _vm._v("Risultati ricerca per: " + _vm._s(_vm.$route.params.navSearch))
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
       _c(
-        "router-link",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.state,
-              expression: "state"
-            }
-          ],
-          staticClass: "btn-sm btn-danger my-2 my-sm-0",
-          attrs: { to: "/search/" + _vm.navSearch }
-        },
+        "div",
+        { staticClass: "col-12 col-md-4" },
         [
-          _c(
-            "span",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.searchProdutcs(_vm.navSearch)
-                }
+          _c("h4", [_vm._v("Sidebar")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.navSearch,
+                expression: "navSearch"
               }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.navSearch },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.navSearch = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.state,
+                  expression: "state"
+                }
+              ],
+              staticClass: "btn-sm btn-danger my-2 my-sm-0",
+              attrs: { to: "/search/" + _vm.navSearch }
             },
-            [_vm._v("Search")]
-          )
-        ]
+            [
+              _c(
+                "span",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.searchProdutcs(_vm.navSearch)
+                    }
+                  }
+                },
+                [_vm._v("Search")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("h4", [_vm._v("Filters")]),
+          _vm._v(" "),
+          _c("div", [
+            _c("h5", [_vm._v("Categories")]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.categories, function(category) {
+                return _c("li", { key: category.id }, [
+                  _vm._v(_vm._s(category.title))
+                ])
+              }),
+              0
+            )
+          ])
+        ],
+        1
       ),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _vm.results.length > 0
-        ? _c(
-            "ul",
-            _vm._l(_vm.results, function(product) {
-              return _c("li", { key: product.id }, [
-                _vm._v("\n\t\t\t" + _vm._s(product.name) + "\n\t\t")
-              ])
-            }),
-            0
-          )
-        : _vm.results.length < 1
-        ? _c("div", [
-            _c("img", {
-              attrs: {
-                src:
-                  "https://image.freepik.com/free-vector/error-404-found-glitch-effect_8024-4.jpg",
-                alt: ""
-              }
-            })
-          ])
-        : _vm._e()
-    ],
-    1
-  )
+      _c("div", { staticClass: "col-12 col-md-8" }, [
+        _c("h4", [_vm._v("Products list")]),
+        _vm._v(" "),
+        _vm.results.length > 0
+          ? _c(
+              "ul",
+              _vm._l(_vm.results, function(product) {
+                return _c("li", { key: product.id }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(product.name) +
+                      " - €" +
+                      _vm._s(product.price) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              }),
+              0
+            )
+          : _vm.results.length < 1
+          ? _c("div", [
+              _c("img", {
+                attrs: {
+                  src:
+                    "https://image.freepik.com/free-vector/error-404-found-glitch-effect_8024-4.jpg",
+                  alt: ""
+                }
+              })
+            ])
+          : _vm._e()
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
