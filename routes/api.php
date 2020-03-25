@@ -24,7 +24,7 @@ Route::get('/search/{value}', 'ProductController@searchProducts');
 
 Route::get('/products', 'ProductController@index');
 // show a product
-Route::get('/products/{product}', 'ProductController@show');
+Route::get('/show/{product}', 'ProductController@show');
 // Delete a product
 Route::delete('/products/{product}', 'ProductController@destroy');
 
