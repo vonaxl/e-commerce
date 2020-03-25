@@ -10,9 +10,9 @@
 				<b-navbar-nav class="ml-auto">
 					<b-nav-form v-show="this.$route.name !== 'resultSearch'">
 							<b-form-input
-									size="sm"
-									class="mr-sm-2"
-									v-model="navSearch"
+								size="sm"
+								class="mr-sm-2"
+								v-model="navSearch"
 							></b-form-input>
 							<router-link v-show="state" :to="'/search/' + navSearch" class="btn-sm btn-danger my-2 my-sm-0">
 									<span v-on:click="productSearch">Search</span>

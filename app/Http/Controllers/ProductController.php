@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 use App\Admin;
 class ProductController extends Controller
 {
 	public function index(){
-		$products=Product::all();
-		return $products;
+		return Product::all();;
 	}
 
 	public function show(Product $product){
@@ -24,7 +24,11 @@ class ProductController extends Controller
 	}
 
 	public function searchProducts($value){
-		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> get();
+		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> with('categories', 'reviews') ->get();
 		return response() -> json(compact('products'));
+	}
+
+	public function allCategories(){
+		return Category::all();
 	}
 }

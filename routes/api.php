@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Show all categories
+Route::get('/categories', 'ProductController@allCategories');
+
 // Show all products
 Route::get('/products', 'ProductController@index');
 // Search product

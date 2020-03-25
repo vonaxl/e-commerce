@@ -1,22 +1,19 @@
 <template>
 <div>
   <Carousel/>
-  <div class="row">
-    <!--  -->
+  <div class="row justify-content-around">
     <router-link  v-for="product in products" v-bind:key="product.id" 
-      :to="'/show/' + product.id">
+      :to="'/show/' + product.id"
+      class="col-12 col-sm-2 col-md-4">
       <b-card  
         :title="product.name"
         img-src="https://picsum.photos/600/300/?image=25"
         img-alt="Image"
         img-top
         tag="article"
-        style="max-width: 20rem;"
-        class="col-3"
+        class="mb-2"
       >
-        <b-card-text>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </b-card-text>
+        <b-card-text>Card text</b-card-text>
       </b-card>
     </router-link>
   </div>
