@@ -24,7 +24,7 @@ class ProductController extends Controller
 	}
 
 	public function searchProducts($value){
-		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> with('categories', 'reviews') ->get();
+		$products = Product::where( 'name', 'LIKE', "%$value%" ) -> with('categories', 'reviews', 'images') ->get();
 		return response() -> json(compact('products'));
 	}
 

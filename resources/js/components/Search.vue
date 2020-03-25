@@ -13,16 +13,38 @@
 				<h4>Filters</h4>
 				<div>
 					<h5>Categories</h5>
-					<ul>
-						<li v-for="category in categories" v-bind:key="category.id">{{ category.title }}</li>
-					</ul>
+					<b-form-select v-model="category" :options="categories" size="sm"></b-form-select>
+					<h5>Price</h5>
+					<b-form-input id="range-1" v-model="priceRange" type="range" min="19" max="1000"></b-form-input>
+					€{{ priceRange }}
 				</div>
 			</div>
 			<div class="col-12 col-md-8">
 				<h4>Products list</h4>
 				<ul v-if="results.length > 0">
 					<li v-for="product in results" v-bind:key="product.id">
-						{{ product.name }} - €{{ product.price }}
+						<p>{{ product.name }}</p>
+						<p>{{ product.description }}</p>
+						<p>€{{ product.price }} | {{ product.quantity }}</p>
+						<ul>
+							<h6 class="text-uppercase text-success">Reviews</h6>
+							<li v-for="review in product.reviews" v-bind:key="review.id">
+								<p >{{ review.title }}</p>
+								<p >{{ review.body }}</p>
+							</li>
+						</ul>
+						<ul>
+							<h6 class="text-uppercase text-danger">Categories</h6>
+							<li v-for="category in product.categories" v-bind:key="category.id">
+								<p class="text-danger">{{ category.title }}</p>
+							</li>
+						</ul>
+						<ul>
+							<h6 class="text-uppercase text-primary">Images</h6>
+							<li v-for="image in product.images" v-bind:key="image.id">
+								<p>{{ image.path }}</p>
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<div v-else-if="results.length < 1">
@@ -41,7 +63,11 @@
 				results: {},
 				navSearch: "",
 				state: false,
-				categories: {}
+				category: null,
+				categories: [
+					{ value: null, text: 'Any category' }
+				],
+				priceRange: 0,
 			};
 		},
 		created(){
@@ -49,8 +75,14 @@
 			axios
 				.get("http://127.0.0.1:3000/api/categories/")
 				.then(function(res) {
-					console.log("Categorie",res);
-					_this.categories = res.data;
+					const data = res.data;
+					let value, text, object = {};
+					res.data.forEach(element => {
+						value = element.id;
+						text = element.title;
+						object = {value, text};
+						_this.categories.push(object);
+					});
 				})
 				.catch(error => console.log(error));
 		},
