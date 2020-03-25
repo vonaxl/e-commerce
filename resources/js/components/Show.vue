@@ -1,12 +1,28 @@
 <template>
-  <div>{{product.description}}</div>
+  <div>
+    {{product.name}} 
+  </div>
 </template>
 
 <script>
 export default {
-  // props: ["product"]
-};
+    data(){
+        return {
+            product: {}
+        }
+    },
+    created(){
+        console.log(this.$route.path)
+    const _this = this;
+    axios
+      .get('http://127.0.0.1:3000/api' + this.$route.path)					
+      .then(function(res) {
+        _this.product = res.data;
+      })
+      .catch(error => console.log(error));
+  }
+}
 </script>
 
 <style>
-</style>
+</style> 

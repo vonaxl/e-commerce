@@ -28,8 +28,7 @@ const router = new VueRouter({
         {
             path: "/show/:id",
             name: "showProduct",
-            component: Show,
-            props: product
+            component: Show
         }
     ]
 });
