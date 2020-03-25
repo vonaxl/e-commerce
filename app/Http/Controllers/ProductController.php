@@ -14,17 +14,13 @@ class ProductController extends Controller
 
 	public function show(Product $product){
 		return $product;
-		// return view('test', compact('product'));
 	}
 
 	public function destroy(Product $product){
-
 		$product -> images() -> delete();   
 		$product -> reviews() -> delete();
 		$product -> categories() -> detach();
-
 		$product -> delete();
-
 	}
 
 	public function searchProducts($value){

@@ -1920,25 +1920,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Footer: _partials_Footer_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {// filterProducts(value){
-    //   console.log("sto cercando", value);
-    // }
   }
 });
 
@@ -2015,17 +2002,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2156,20 +2132,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Header',
   components: {
     Navbar: _sub_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {};
-  },
-  methods: {// getNavSearch(value){
-    //   this.$emit('filterProducts', value);
-    // }
   }
 });
 
@@ -2295,26 +2262,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Navbar",
   data: function data() {
@@ -2324,10 +2271,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    // navSearch: function(value) {
-    //   console.clear();
-    //   this.$emit('navSearch', value);
-    // },
     navSearch: function navSearch(input) {
       if (input.length > 0) {
         this.state = true;
@@ -69205,7 +69148,7 @@ var render = function() {
             "ul",
             _vm._l(_vm.results, function(product) {
               return _c("li", { key: product.id }, [
-                _vm._v("\n            " + _vm._s(product.name) + "\n        ")
+                _vm._v("\n\t\t\t" + _vm._s(product.name) + "\n\t\t")
               ])
             }),
             0
@@ -84652,23 +84595,23 @@ __webpack_require__(/*! ../../node_modules/bootstrap-vue/dist/bootstrap-vue */ "
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(BootstrapVue);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  mode: 'history',
+  mode: "history",
   routes: [{
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: _components_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/search/:navSearch',
-    name: 'resultSearch',
+    path: "/search/:navSearch",
+    name: "resultSearch",
     component: _components_Search__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
-    path: '/show/:id',
-    name: 'showProduct',
+    path: "/show/:id",
+    name: "showProduct",
     component: _components_Show__WEBPACK_IMPORTED_MODULE_5__["default"]
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
+  el: "#app",
   components: {
     App: _components_App__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -85292,8 +85235,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\rispo\OneDrive\Desktop\Github\e-commerce\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\rispo\OneDrive\Desktop\Github\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- navbar -->
     <Navbar/>
-    <!-- <Navbar v-on:navSearch="getNavSearch"/> -->
   </div>
 </template>
 
@@ -13,15 +11,6 @@
     name: 'Header',
     components: {
       Navbar
-    },
-    data(){
-      return {
-      }
-    },
-    methods: {
-      // getNavSearch(value){
-      //   this.$emit('filterProducts', value);
-      // }
     }
   }
 </script>
