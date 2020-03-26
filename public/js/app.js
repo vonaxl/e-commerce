@@ -1966,6 +1966,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1979,7 +1982,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('http://127.0.0.1:3000/api/products').then(function (res) {
+    axios.get("http://127.0.0.1:3000/api/products").then(function (res) {
       console.log(res.data);
       _this.products = res.data;
     })["catch"](function (error) {
@@ -85402,8 +85405,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Axl\Documents\GitHub\e-commerce\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Axl\Documents\GitHub\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
