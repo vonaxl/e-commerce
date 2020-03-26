@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Risultati ricerca {{ results.length }}</h1>
+		<h1>Risultati ricerca per: {{ $route.params.navSearch }}</h1>
 		<hr>
 		<div class="row">
 			<div class="col-12 col-md-4">
@@ -69,6 +69,8 @@
 		},
 		created(){
 			this.searchProdutcs(this.$route.params.navSearch);
+			this.navSearch = null;
+
 			const _this = this;
 			axios
 				.get("http://127.0.0.1:3000/api/categories/")
@@ -128,8 +130,8 @@
 					})
 					.then(function(res) {
 						_this.results = res.data.products;
-						_this.myParams = {};
 						console.log(res);
+						
 					})
 					.catch(error => console.log(error));
 			}
