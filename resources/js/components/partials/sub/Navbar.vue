@@ -43,6 +43,7 @@ export default {
 		}
 	},
 	methods: {
+
 		productSearch() {
 			setTimeout(() => {
 				this.navSearch = "";
