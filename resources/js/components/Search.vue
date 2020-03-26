@@ -11,12 +11,9 @@
 				<div>
 					<h5>Categories</h5>
 					<b-form-select v-model="category" :options="categories" size="sm"></b-form-select>
-					<div v-if="state">
-
 					<h5>Price</h5>
-					<b-form-input  id="range-1" v-model="priceRange" type="range" min="19" max="1000"></b-form-input>
+					<b-form-input id="range-1" v-model="priceRange" type="range" min="19" max="1000"></b-form-input>
 					€{{ priceRange }}
-					</div>
 				</div>
 			</div>
 			<div class="col-12 col-md-8">
@@ -64,7 +61,6 @@
 				myParams: {},
 				navSearch: null,
 				category: null,
-				state:false,
 				categories: [
 					{ value: null, text: 'Any category' }
 				],
@@ -95,8 +91,6 @@
 				this.timeout = setTimeout(function() {
 					_this.searchProdutcs();
 				}, 500);
-				(input.length >= 1) ? _this.state = true : _this.state = false
-				
 			},
 			category: function() {
 				this.searchProdutcs();
@@ -112,13 +106,21 @@
 		methods: {
 			searchProdutcs(value) {
 				console.clear()
+				
 				const _this = this;
-				
-				if(value) _this.myParams.navSearch = value;
-				if(_this.navSearch != null) _this.myParams.navSearch = _this.navSearch;
-				if(_this.category != null) _this.myParams.category = _this.category;
-				if(_this.priceRange != null) _this.myParams.price = _this.priceRange;
-				
+
+				if(value){
+					_this.myParams.navSearch = value;
+				}
+				if(_this.navSearch != null) {
+					_this.myParams.navSearch = _this.navSearch;
+				}
+				if(_this.category != null) {
+					_this.myParams.category = _this.category;
+				}
+				if(_this.priceRange != null) {
+					_this.myParams.price = _this.priceRange;
+				}
 
 				axios
 					.get("http://127.0.0.1:3000/api/search/",{

@@ -2053,9 +2053,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Search",
   data: function data() {
@@ -2064,7 +2061,6 @@ __webpack_require__.r(__webpack_exports__);
       myParams: {},
       navSearch: null,
       category: null,
-      state: false,
       categories: [{
         value: null,
         text: 'Any category'
@@ -2105,7 +2101,6 @@ __webpack_require__.r(__webpack_exports__);
       this.timeout = setTimeout(function () {
         _this.searchProdutcs();
       }, 500);
-      input.length >= 1 ? _this.state = true : _this.state = false;
     },
     category: function category() {
       this.searchProdutcs();
@@ -2126,10 +2121,22 @@ __webpack_require__.r(__webpack_exports__);
 
       var _this = this;
 
-      if (value) _this.myParams.navSearch = value;
-      if (_this.navSearch != null) _this.myParams.navSearch = _this.navSearch;
-      if (_this.category != null) _this.myParams.category = _this.category;
-      if (_this.priceRange != null) _this.myParams.price = _this.priceRange;
+      if (value) {
+        _this.myParams.navSearch = value;
+      }
+
+      if (_this.navSearch != null) {
+        _this.myParams.navSearch = _this.navSearch;
+      }
+
+      if (_this.category != null) {
+        _this.myParams.category = _this.category;
+      }
+
+      if (_this.priceRange != null) {
+        _this.myParams.price = _this.priceRange;
+      }
+
       axios.get("http://127.0.0.1:3000/api/search/", {
         params: _this.myParams
       }).then(function (res) {
@@ -69074,7 +69081,7 @@ var render = function() {
     [
       _c("Header"),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [_c("router-view")], 1),
+      _c("div", { staticClass: "container" }, [_c("router-view")], 1),
       _vm._v(" "),
       _c("Footer")
     ],
@@ -69217,34 +69224,19 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.state
-              ? _c(
-                  "div",
-                  [
-                    _c("h5", [_vm._v("Price")]),
-                    _vm._v(" "),
-                    _c("b-form-input", {
-                      attrs: {
-                        id: "range-1",
-                        type: "range",
-                        min: "19",
-                        max: "1000"
-                      },
-                      model: {
-                        value: _vm.priceRange,
-                        callback: function($$v) {
-                          _vm.priceRange = $$v
-                        },
-                        expression: "priceRange"
-                      }
-                    }),
-                    _vm._v(
-                      "\n\t\t\t\t€" + _vm._s(_vm.priceRange) + "\n\t\t\t\t"
-                    )
-                  ],
-                  1
-                )
-              : _vm._e()
+            _c("h5", [_vm._v("Price")]),
+            _vm._v(" "),
+            _c("b-form-input", {
+              attrs: { id: "range-1", type: "range", min: "19", max: "1000" },
+              model: {
+                value: _vm.priceRange,
+                callback: function($$v) {
+                  _vm.priceRange = $$v
+                },
+                expression: "priceRange"
+              }
+            }),
+            _vm._v("\n\t\t\t\t€" + _vm._s(_vm.priceRange) + "\n\t\t\t")
           ],
           1
         )
@@ -85408,8 +85400,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\rispo\OneDrive\Desktop\Github\e-commerce\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\rispo\OneDrive\Desktop\Github\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Marco Polino\Desktop\pojects-temp\e-commerce\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
